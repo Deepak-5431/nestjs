@@ -1,0 +1,19 @@
+# Node modules
+client/node_modules/
+server/node_modules/
+
+# Next.js & NestJS build files
+client/.next/
+server/dist/
+
+# Environment variables
+client/.env*
+server/.env*
+
+# Logs
+*.log
+
+# OS/Editor stuff
+.DS_Store
+.idea/
+.vscode/
