@@ -9,9 +9,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    UsersModule, // ✅ ADD THIS LINE
+    UsersModule, 
     PassportModule,
-    ConfigModule, // Make sure ConfigModule is here to use .env variables
+    ConfigModule, 
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
