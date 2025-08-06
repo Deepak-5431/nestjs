@@ -1,15 +1,22 @@
+
+import { ObjectType,Field,ID } from '@nestjs/graphql';
 import {Prop,Schema,SchemaFactory} from '@nestjs/mongoose'
 import {Document} from 'mongoose';
 import * as bcrypt from 'bcrypt'
 
 export type UserDocument = User & Document;
 
+@ObjectType()
 @Schema({
   timestamps:true,
   collection: 'nestjs'
 })
 export class User{
-  @Prop({required: true, unique:true,trim:true})
+  @Field(() => ID)
+  _id: string;
+  
+  @Field()
+  @Prop({required: true, unique:true,trim:true,index:true})
   email: string;
 
   @Prop({required:true})

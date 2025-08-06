@@ -9,13 +9,16 @@ import { TodoDocument,Todo } from './schemas/todo.schema';
 export class TodosService {
   constructor(@InjectModel(Todo.name) private todoModel: Model<TodoDocument>){}
 
-  async create(createTodoDto: CreateTodoDto): Promise<Todo>{
-    const newTodo = new this.todoModel(createTodoDto);
+  async create(createTodoDto: CreateTodoDto, userId: string): Promise<Todo>{
+    const newTodo = new this.todoModel({
+      ...createTodoDto,
+      user: userId,
+    });
     return newTodo.save();
   }
 
-  async findAll() : Promise<Todo[]>{
-    return this.todoModel.find().exec();
+  async findAllForUser(userId: string) : Promise<Todo[]>{
+    return this.todoModel.find({user:userId}).exec();
   }
 
 
@@ -42,4 +45,6 @@ export class TodosService {
     }
     return deleteTodo;
   }
+
+
 }

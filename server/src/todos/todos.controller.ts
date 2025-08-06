@@ -3,28 +3,32 @@ import { AuthGuard } from '@nestjs/passport';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { User } from 'src/users/schemas/user.schema';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { UserPayloadDto } from 'src/auth/dto/user-payload.dto'
 
-
-@UseGuards(AuthGuard('jwt'))
 @Controller('todos')
+@UseGuards(AuthGuard('jwt'))
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
-@Get('my-todos')
-findMyTodos(@GetUser()user:User){
-  console.log(user.email);
-}
-
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
-    return this.todosService.create(createTodoDto);
+  create(
+    @Body() createTodoDto: CreateTodoDto,
+    @GetUser() user: UserPayloadDto,
+  ) {
+    return this.todosService.create(createTodoDto, user.userId);
   }
 
   @Get()
-  findAll() {
-    return this.todosService.findAll();
+  findAll(@GetUser() user: UserPayloadDto) {
+    return this.todosService.findAllForUser(user.userId);
+  }
+
+  
+  @Get('my-special-todos') 
+  findMyTodos(@GetUser() user: UserPayloadDto) { 
+    console.log(`Fetching special todos for user: ${user.email}`);
+    return this.todosService.findAllForUser(user.userId);
   }
 
   @Get(':id')
