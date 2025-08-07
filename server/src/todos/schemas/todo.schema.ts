@@ -27,6 +27,12 @@ export class Todo {
   @Field(()=> User)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User',required:true})
   user:User;
+
+    @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
 }
 
 export const TodoSchema = SchemaFactory.createForClass(Todo);

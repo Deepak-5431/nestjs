@@ -12,7 +12,7 @@ export class AuthController {
     return this.authService.signUp(createUserDto);
   }
 
-  @HttpCode(HttpStatus.OK) // Set the success status code to 200 for login
+  @HttpCode(HttpStatus.OK) 
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.email, signInDto.password);
