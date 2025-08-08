@@ -1,8 +1,7 @@
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { SignInDto } from './dto/sign-in.dto'; // You will need to create this DTO
-
+import { SignInDto } from './dto/sign-in.dto'; 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
